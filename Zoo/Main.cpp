@@ -18,6 +18,7 @@ void CaseThree(vector < Animal* > parVect, string parType);
 int main()
 {
 	//какое то добавленное изменение
+	// еще одно изменение
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
