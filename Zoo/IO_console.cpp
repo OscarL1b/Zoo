@@ -42,6 +42,8 @@ void Chinchila::Print() const
 
 void Animal::Fill()
 {
+	unsigned id_mother;
+	unsigned id_father;
 	string f_name;
 	float f_weaght;
 	int f_age;
@@ -57,6 +59,14 @@ void Animal::Fill()
 	cout << "Возраст: ";
 	cin >> f_age;
 	this->SetAge(f_age);
+
+	cout << "Id матери: ";
+	cin >> id_mother;
+	this->SetIdMother(id_mother);
+
+	cout << "Id отца: ";
+	cin >> id_father;
+	this->SetIdFather(id_father);
 }
 
 void Dog::Fill()

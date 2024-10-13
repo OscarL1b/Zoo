@@ -32,6 +32,12 @@ Animal::Animal(int parid, string paranimal, string parname, float parweaght, int
 	this->age = parage;
 }
 
+Animal::Animal(unsigned parId_M, unsigned parId_F)
+{
+	this->idMother = parId_M;
+	this->idFather = parId_F;
+}
+
 void Animal::SetVect(vector < Animal* > parvect)
 {
 	Animal::vect = parvect;
@@ -56,6 +62,16 @@ void Animal::SetAge(int parAge)
 	this->age = parAge;
 }
 
+void Animal::SetIdMother(unsigned parId_M)
+{
+	this->idMother = parId_M;
+}
+
+void Animal::SetIdFather(unsigned parId_F)
+{
+	this->idFather = parId_F;
+}
+
 string Animal::GetName()
 {
 	return this->name;
@@ -73,6 +89,16 @@ int Animal::GetAge()
 string Animal::GetAnimal()
 {
 	return this->animal;
+}
+
+unsigned Animal::GetIdMother()
+{
+	return this->idMother;
+}
+
+unsigned Animal::GetIdFather()
+{
+	return this->idFather;
 }
 
 float Animal::NeedFeed() const
