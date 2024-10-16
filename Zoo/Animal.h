@@ -10,8 +10,8 @@ private:
 	static vector < Animal* > vect;
 
 protected:
-	unsigned idMother = 0;
-	unsigned idFather = 0;
+	Animal* mother = nullptr;
+	Animal* father = nullptr;
 	string animal;
 	string name;
 	float weaght = 0.0;
@@ -23,7 +23,7 @@ protected:
 	Animal(string parAnimal, float parWeaght, int parAge);
 	Animal();
 	Animal(int parid, string paranimal, string parname, float parweaght, int parage);
-	Animal(unsigned parId_M, unsigned parId_F);
+	Animal(unsigned parM, unsigned parF);
 
 public:
 	void SetVect(vector < Animal* > parvect);
@@ -32,16 +32,18 @@ public:
 	void SetName(string parName);
 	void SetWeaght(float parWeaght);
 	void SetAge(int parAge);
-	void SetIdMother(unsigned parId_M);
-	void SetIdFather(unsigned parId_F);
+	void SetMother(Animal* parM);
+	void SetFather(Animal* parF);
 	string GetName();
 	float GetWeaght();
 	int GetAge();
 	string GetAnimal();
-	unsigned GetIdMother();
-	unsigned GetIdFather();
+	int GetId();
+	Animal* GetMother();
+	Animal* GetFather();
 	virtual float NeedFeed() const; 
 	virtual void Fill();
 	virtual string Info();
 	void SetId(int parid);
+	Animal* FindAnimal(unsigned id);
 };

@@ -32,10 +32,12 @@ Animal::Animal(int parid, string paranimal, string parname, float parweaght, int
 	this->age = parage;
 }
 
-Animal::Animal(unsigned parId_M, unsigned parId_F)
+Animal::Animal(unsigned parM, unsigned parF)
 {
-	this->idMother = parId_M;
-	this->idFather = parId_F;
+	if (parM > 0) 
+	{
+		this->mother->FindAnimal(parM);
+	}
 }
 
 void Animal::SetVect(vector < Animal* > parvect)
@@ -62,14 +64,14 @@ void Animal::SetAge(int parAge)
 	this->age = parAge;
 }
 
-void Animal::SetIdMother(unsigned parId_M)
+void Animal::SetMother(Animal* parM)
 {
-	this->idMother = parId_M;
+	this->mother = parM;
 }
 
-void Animal::SetIdFather(unsigned parId_F)
+void Animal::SetFather(Animal* parF)
 {
-	this->idFather = parId_F;
+	this->father = parF;
 }
 
 string Animal::GetName()
@@ -91,14 +93,19 @@ string Animal::GetAnimal()
 	return this->animal;
 }
 
-unsigned Animal::GetIdMother()
+int Animal::GetId()
 {
-	return this->idMother;
+	return this->id;
 }
 
-unsigned Animal::GetIdFather()
+Animal* Animal::GetMother()
 {
-	return this->idFather;
+	return this->mother;
+}
+
+Animal* Animal::GetFather()
+{
+	return this->father;
 }
 
 float Animal::NeedFeed() const
@@ -117,4 +124,14 @@ void Animal::SetId(int parid)
 
 	if (ID < parid)
 		ID = parid;
+}
+
+Animal* Animal::FindAnimal(unsigned id)
+{
+	vector< Animal* > vect = Animal::GetVect();
+	for (short i = 0; i < size(vect); i++)
+	{
+		if (vect[i]->GetId() == id)
+			return vect[i];
+	}
 }

@@ -62,11 +62,11 @@ void Animal::Fill()
 
 	cout << "Id матери: ";
 	cin >> id_mother;
-	this->SetIdMother(id_mother);
+	//this->SetIdMother(id_mother);
 
 	cout << "Id отца: ";
 	cin >> id_father;
-	this->SetIdFather(id_father);
+	//this->SetIdFather(id_father);
 }
 
 void Dog::Fill()
