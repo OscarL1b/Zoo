@@ -22,7 +22,7 @@ void SaveData(vector <Animal*> vect, const string parFile);
 string StringToUpp(string parStr);
 void ReadData(vector < Animal* > &parvect, const string parFile);
 bool ContainsValue(vector < string >& parVect, string parValue);
-void CaseThree(vector < Animal* > parVect, string parType);
+void PrintByType(vector < Animal* > parVect, string parType);
 
 int main()
 {
@@ -214,7 +214,7 @@ void FindAnimalsByType(vector <Animal*> vect)
 	cout << ">>> ";
 	cin >> var;
 
-	CaseThree(vect, typeAnim[var - 1]);
+	PrintByType(vect, typeAnim[var - 1]);
 }
 
 void DeleteAnimalByName(vector <Animal*> vect)
@@ -342,7 +342,7 @@ bool ContainsValue(vector < string > &parVect, string parValue)
 }
 
 
-void CaseThree(vector < Animal* > parVect, string parType)
+void PrintByType(vector < Animal* > parVect, string parType)
 {
 	for (short i = 0; i < size(parVect); i++)
 	{
