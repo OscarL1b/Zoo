@@ -23,7 +23,7 @@ protected:
 	Animal(string parAnimal, float parWeaght, int parAge);
 	Animal();
 	Animal(int parid, string paranimal, string parname, float parweaght, int parage);
-	Animal(unsigned parM, unsigned parF);
+	Animal(unsigned par);
 
 public:
 	void SetVect(vector < Animal* > parvect);

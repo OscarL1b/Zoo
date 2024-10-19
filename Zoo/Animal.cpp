@@ -32,11 +32,11 @@ Animal::Animal(int parid, string paranimal, string parname, float parweaght, int
 	this->age = parage;
 }
 
-Animal::Animal(unsigned parM, unsigned parF)
+Animal::Animal(unsigned par)
 {
-	if (parM > 0) 
+	if (par > 0) 
 	{
-		this->mother->FindAnimal(parM);
+		this->mother->FindAnimal(par);
 	}
 }
 

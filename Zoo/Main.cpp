@@ -10,49 +10,38 @@
 #include <vector>
 using namespace std;
 
-string toUpp(string parStr);
-void split(vector < Animal* > &parvect);
+void SetSettingConsole();
+void ShowMainMenu();
+void ShowSelectAddAnimal();
+void FindAnimalByName(vector <Animal*> vect);
+void FindAnimalsByType(vector <Animal*> vect);
+void DeleteAnimalByName(vector <Animal*> vect);
+void CalculatingFeed(vector <Animal*> vect);
+void InfoAnimals(vector <Animal*> vect);
+void SaveData(vector <Animal*> vect, const string parFile);
+string StringToUpp(string parStr);
+void ReadData(vector < Animal* > &parvect, const string parFile);
 bool ContainsValue(vector < string >& parVect, string parValue);
 void CaseThree(vector < Animal* > parVect, string parType);
 
 int main()
 {
-	//какое то добавленное изменение
-	// еще одно изменение
-	setlocale(LC_ALL, "rus");
-	SetConsoleCP(1251);
-	SetConsoleOutputCP(1251);
+	SetSettingConsole();
 
 	const string seperator = "==================";
-	//vector < Animal* > vect;
 	int choiseMenu;
 	string addAnimal;
-	string findAnimal;
-	string deleteAnimal;
-	bool flag = false;
-	bool flagDelete = false;
-	ofstream out;
 	vector<string> typeAnim;
-
+	const string file = "data.txt";
 	vector <Animal*> vect = Animal::GetVect();
 
-	split(vect);
-
-	
+	ReadData(vect, file);
 
 	while (true)
 	{
-		int k = 0;
 		system("cls");
-		cout << "--------- Меню ---------" << endl;
-		cout << "1. Добавить животное." << endl
-			<< "2. Найти животное." << endl
-			<< "3. Найти животных по типу." << endl
-			<< "4. Удалить животное." << endl
-			<< "5. Расчет колличества корма." << endl
-			<< "6. Информация обо всех животных." << endl
-			<< "7. Выход." << endl;
-		cout << ">>> ";
+
+		ShowMainMenu();
 		cin >> choiseMenu;
 		
 		system("cls");
@@ -61,13 +50,7 @@ int main()
 		{
 		case 1:
 			int variant;
-			system("cls");
-			cout << "--------- Добавление животного ---------" << endl;
-			cout << "1. Добавить собаку." << endl
-				<< "2. Добавить кошку." << endl
-				<< "3. Добавить шиншиллу." << endl
-				<< "4. Назад." << endl;
-			cout << ">>> ";
+			ShowSelectAddAnimal();
 			cin >> variant;
 
 			system("cls");
@@ -109,102 +92,37 @@ int main()
 			break;
 
 		case 2:
-			cout << "Кличка животного которое надо найти: ";
-			cin >> findAnimal;
-
-			for (int i = 0; i < size(vect); i++)
-			{
-				if (toUpp(vect[i]->GetName()) == toUpp(findAnimal))
-				{
-					vect[i]->Print();
-					flag = true;
-				}
-				
-			}
-
-			if (flag = false)
-			{
-				cout << "Животное не найдено! " << endl;
-			}
+			FindAnimalByName(vect);
 
 			system("pause");
 			break;
 			
 		case 3:
-			for (short i = 0; i < size(vect); i++)
-			{
-				if (ContainsValue(typeAnim, vect[i]->GetAnimal()) == false)
-					typeAnim.push_back(vect[i]->GetAnimal());
-			}
-
-			short var;
-			for (short i = 0; i < size(typeAnim); i++)
-			{
-				if (typeAnim[i] == "Собака")
-					cout << i + 1 << ". Вывести всех собак." << endl;
-
-				else if (typeAnim[i] == "Кошка")
-					cout << i + 1 << ". Вывести всех кошек." << endl;
-
-				else if (typeAnim[i] == "Шиншилла")
-					cout << i + 1 << ". Вывести всех шиншилл." << endl;
-			}
-			cout << ">>> ";
-			cin >> var;
-			
-			CaseThree(vect, typeAnim[var - 1]);
+			FindAnimalsByType(vect);
 
 			system("pause");
 			break;
 
 		case 4:
-			cout << "Кличка животного которое надо удалить: ";
-			cin >> deleteAnimal;
-
-			for (int i = 0; i < size(vect); i++)
-			{
-				if (toUpp(vect[i]->GetName()) == toUpp(deleteAnimal))
-				{
-					delete vect[i];
-					vect.erase(vect.begin() + i);
-					cout << "Животное удалено! " << endl;
-				}
-			}
+			DeleteAnimalByName(vect);
+			
 			system("pause");
 			break;
 
 		case 5:
-			float needFeed;
-			needFeed = 0;
-
-			for (int i = 0; i < size(vect); i++)
-			{
-				needFeed = needFeed + vect[i]->NeedFeed();
-			}
-			cout << "Нужно корма: " << needFeed << endl;
+			CalculatingFeed(vect);
 
 			system("pause");
 			break;
 
 		case 6:
-			for (int i = 0; i < size(vect); i++)
-			{
-				vect[i]->Print();
-			}
+			InfoAnimals(vect);
+
 			system("pause");
 			break;
 
 		case 7:
-			out.open("data.txt");
-			for (int i = 0; i < size(vect); i++)
-			{
-				if (out.is_open())
-				{
-					out << vect[i]->Info();
-				}
-			}
-
-			out.close();
+			SaveData(vect, file);
 
 			exit(EXIT_SUCCESS);
 
@@ -213,11 +131,146 @@ int main()
 			continue;
 		}
 	}
-
 	return 0;
 }
 
-string toUpp(string parStr)
+void SetSettingConsole()
+{
+	setlocale(LC_ALL, "rus");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+}
+
+void ShowMainMenu()
+{
+	system("cls");
+	cout << "--------- Меню ---------" << endl;
+	cout << "1. Добавить животное." << endl
+		<< "2. Найти животное." << endl
+		<< "3. Найти животных по типу." << endl
+		<< "4. Удалить животное." << endl 
+		<< "5. Расчет колличества корма." << endl
+		<< "6. Информация обо всех животных." << endl
+		<< "7. Выход." << endl;
+	cout << ">>> ";
+}
+
+void ShowSelectAddAnimal()
+{
+	system("cls");
+	cout << "--------- Добавление животного ---------" << endl;
+	cout << "1. Добавить собаку." << endl
+		<< "2. Добавить кошку." << endl
+		<< "3. Добавить шиншиллу." << endl
+		<< "4. Назад." << endl;
+	cout << ">>> ";
+}
+
+void FindAnimalByName(vector <Animal*> vect)
+{
+	string findAnimal;
+	bool flag = false;
+	cout << "Кличка животного которое надо найти: ";
+	cin >> findAnimal;
+
+	for (int i = 0; i < size(vect); i++)
+	{
+		if (StringToUpp(vect[i]->GetName()) == StringToUpp(findAnimal))
+		{
+			vect[i]->Print();
+			flag = true;
+		}
+
+	}
+
+	if (flag = false)
+	{
+		cout << "Животное не найдено! " << endl;
+	}
+}
+
+void FindAnimalsByType(vector <Animal*> vect)
+{
+	vector<string> typeAnim;
+
+	for (short i = 0; i < size(vect); i++)
+	{
+		if (ContainsValue(typeAnim, vect[i]->GetAnimal()) == false)
+			typeAnim.push_back(vect[i]->GetAnimal());
+	}
+
+	short var;
+	for (short i = 0; i < size(typeAnim); i++)
+	{
+		if (typeAnim[i] == "Собака")
+			cout << i + 1 << ". Вывести всех собак." << endl;
+
+		else if (typeAnim[i] == "Кошка")
+			cout << i + 1 << ". Вывести всех кошек." << endl;
+
+		else if (typeAnim[i] == "Шиншилла")
+			cout << i + 1 << ". Вывести всех шиншилл." << endl;
+	}
+	cout << ">>> ";
+	cin >> var;
+
+	CaseThree(vect, typeAnim[var - 1]);
+}
+
+void DeleteAnimalByName(vector <Animal*> vect)
+{
+	string deleteAnimal;
+
+	cout << "Кличка животного которое надо удалить: ";
+	cin >> deleteAnimal;
+
+	for (int i = 0; i < size(vect); i++)
+	{
+		if (StringToUpp(vect[i]->GetName()) == StringToUpp(deleteAnimal))
+		{
+			delete vect[i];
+			vect.erase(vect.begin() + i);
+			cout << "Животное удалено! " << endl;
+		}
+	}
+}
+
+void CalculatingFeed(vector <Animal*> vect)
+{
+	float needFeed;
+	needFeed = 0;
+
+	for (int i = 0; i < size(vect); i++)
+	{
+		needFeed = needFeed + vect[i]->NeedFeed();
+	}
+	cout << "Нужно корма: " << needFeed << endl;
+}
+
+void InfoAnimals(vector <Animal*> vect)
+{
+	for (int i = 0; i < size(vect); i++)
+	{
+		vect[i]->Print();
+	}
+}
+
+void SaveData(vector <Animal*> vect, const string parFile)
+{
+	ofstream out;
+
+	out.open(parFile);
+	for (int i = 0; i < size(vect); i++)
+	{
+		if (out.is_open())
+		{
+			out << vect[i]->Info();
+		}
+	}
+	out.close();
+}
+
+string StringToUpp(string parStr)
 {
 	string Upp = "";
 	Upp = parStr;
@@ -229,7 +282,7 @@ string toUpp(string parStr)
 }
 
 
-void split(vector < Animal* > &parvect)
+void ReadData(vector < Animal* > &parvect, const string parFile)
 {
 	vector<string> tokens;
 	string razdel = "\t";
@@ -237,7 +290,7 @@ void split(vector < Animal* > &parvect)
 	string string_I;
 	string token;
 
-	ifstream out("data.txt");
+	ifstream out(parFile);
 	if (out.is_open())
 	{
 		while (getline(out, string_I))
