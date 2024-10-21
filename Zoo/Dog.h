@@ -12,6 +12,7 @@ public:
 	Dog(string breed, float weaght, int age);
 	Dog();
 	Dog(int parid, string parname, float parweaght, int parage, string parbreed);
+	Dog(map <string, string> fieldsMap);
 	void SetBreed(string parBreed);
 	string GetBreed();
 	float NeedFeed() const override;

@@ -8,30 +8,29 @@
 #include "Cat.h"
 #include "Chinchila.h"
 #include <vector>
+#include <map>
 using namespace std;
 
 void SetSettingConsole();
 void ShowMainMenu();
 void ShowSelectAddAnimal();
-void FindAnimalByName(vector <Animal*> vect);
-void FindAnimalsByType(vector <Animal*> vect);
-void DeleteAnimalByName(vector <Animal*> vect);
-void CalculatingFeed(vector <Animal*> vect);
-void InfoAnimals(vector <Animal*> vect);
-void SaveData(vector <Animal*> vect, const string parFile);
+void FindAnimalByName(vector <Animal*>& vect);
+void FindAnimalsByType(vector <Animal*>& vect);
+void DeleteAnimalByName(vector <Animal*>& vect);
+void CalculatingFeed(vector <Animal*>& vect);
+void InfoAnimals(vector <Animal*>& vect);
+void SaveData(vector <Animal*>& vect, const string parFile);
 string StringToUpp(string parStr);
 void ReadData(vector < Animal* > &parvect, const string parFile);
+pair <string, string> GetPair(string str, string separator);
 bool ContainsValue(vector < string >& parVect, string parValue);
-void PrintByType(vector < Animal* > parVect, string parType);
+void PrintByType(vector < Animal* >& parVect, string parType);
 
 int main()
 {
 	SetSettingConsole();
-
-	const string seperator = "==================";
+	
 	int choiseMenu;
-	string addAnimal;
-	vector<string> typeAnim;
 	const string file = "data.txt";
 	vector <Animal*> vect = Animal::GetVect();
 
@@ -49,6 +48,7 @@ int main()
 		switch (choiseMenu)
 		{
 		case 1:
+
 			int variant;
 			ShowSelectAddAnimal();
 			cin >> variant;
@@ -59,6 +59,7 @@ int main()
 			switch (variant)
 			{
 			case 1:
+
 				vect.push_back(new Dog());
 				vect.back()->Fill();
 				cout << "Животное добавлено!" << endl;
@@ -66,6 +67,7 @@ int main()
 				break;
 
 			case 2:
+
 				vect.push_back(new Cat());
 				vect.back()->Fill();
 				cout << "Животное добавлено!" << endl;
@@ -73,6 +75,7 @@ int main()
 				break;
 
 			case 3:
+
 				vect.push_back(new Chinchila());
 				vect.back()->Fill();
 				cout << "Животное добавлено!" << endl;
@@ -80,9 +83,11 @@ int main()
 				break;
 
 			case 4:
+
 				continue;
 
 			default:
+
 				cerr << "Такого выбора нет! " << endl;
 				break;
 			}
@@ -92,55 +97,67 @@ int main()
 			break;
 
 		case 2:
+
 			FindAnimalByName(vect);
 
 			system("pause");
 			break;
 			
 		case 3:
+
 			FindAnimalsByType(vect);
 
 			system("pause");
 			break;
 
 		case 4:
+
 			DeleteAnimalByName(vect);
 			
 			system("pause");
 			break;
 
 		case 5:
+
 			CalculatingFeed(vect);
 
 			system("pause");
 			break;
 
 		case 6:
+
 			InfoAnimals(vect);
 
 			system("pause");
 			break;
 
 		case 7:
+
 			SaveData(vect, file);
 
 			exit(EXIT_SUCCESS);
 
 		default:
+
 			cerr << "Такого выбора нет!" << endl;
 			continue;
 		}
 	}
 	return 0;
 }
-
-void SetSettingConsole()
+/// <summary>
+/// Настройка текста в консоли
+/// </summary>
+void SetSettingConsole() 
 {
 	setlocale(LC_ALL, "rus");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
 }
 
+/// <summary>
+/// Вывод главного меню
+/// </summary>
 void ShowMainMenu()
 {
 	system("cls");
@@ -155,6 +172,9 @@ void ShowMainMenu()
 	cout << ">>> ";
 }
 
+/// <summary>
+/// Вывод меню добавления животного
+/// </summary>
 void ShowSelectAddAnimal()
 {
 	system("cls");
@@ -166,7 +186,11 @@ void ShowSelectAddAnimal()
 	cout << ">>> ";
 }
 
-void FindAnimalByName(vector <Animal*> vect)
+/// <summary>
+/// Поиск животного по кличке
+/// </summary>
+/// <param name="vect"> Вектрор всех животных. </param>
+void FindAnimalByName(vector <Animal*>& vect)
 {
 	string findAnimal;
 	bool flag = false;
@@ -189,7 +213,11 @@ void FindAnimalByName(vector <Animal*> vect)
 	}
 }
 
-void FindAnimalsByType(vector <Animal*> vect)
+/// <summary>
+/// Поиск животных по типу
+/// </summary>
+/// <param name="vect"> Вуктор всех животных. </param>
+void FindAnimalsByType(vector <Animal*>& vect)
 {
 	vector<string> typeAnim;
 
@@ -217,7 +245,11 @@ void FindAnimalsByType(vector <Animal*> vect)
 	PrintByType(vect, typeAnim[var - 1]);
 }
 
-void DeleteAnimalByName(vector <Animal*> vect)
+/// <summary>
+/// Удаление животного по кличке
+/// </summary>
+/// <param name="vect"> Вектрор всех животных. </param>
+void DeleteAnimalByName(vector <Animal*>& vect)
 {
 	string deleteAnimal;
 
@@ -235,7 +267,11 @@ void DeleteAnimalByName(vector <Animal*> vect)
 	}
 }
 
-void CalculatingFeed(vector <Animal*> vect)
+/// <summary>
+/// Расчёт колличества корма
+/// </summary>
+/// <param name="vect"> Вектрор всех животных. </param>
+void CalculatingFeed(vector <Animal*>& vect)
 {
 	float needFeed;
 	needFeed = 0;
@@ -247,7 +283,11 @@ void CalculatingFeed(vector <Animal*> vect)
 	cout << "Нужно корма: " << needFeed << endl;
 }
 
-void InfoAnimals(vector <Animal*> vect)
+/// <summary>
+/// Информация обо всех животных.
+/// </summary>
+/// <param name="vect"> Вектор всех животных. </param>
+void InfoAnimals(vector <Animal*>& vect)
 {
 	for (int i = 0; i < size(vect); i++)
 	{
@@ -255,7 +295,12 @@ void InfoAnimals(vector <Animal*> vect)
 	}
 }
 
-void SaveData(vector <Animal*> vect, const string parFile)
+/// <summary>
+/// Загрузка данных в файл
+/// </summary>
+/// <param name="vect"> Вектор всех животных. </param>
+/// <param name="parFile"> Файл данных. </param>
+void SaveData(vector <Animal*>& vect, const string parFile)
 {
 	ofstream out;
 
@@ -270,6 +315,11 @@ void SaveData(vector <Animal*> vect, const string parFile)
 	out.close();
 }
 
+/// <summary>
+/// Перевод строки в верхний регистр
+/// </summary>
+/// <param name="parStr"> Строка которую нужно перевести в верхний регистр. </param>
+/// <returns> Строка переведенная в верхний регистр. </returns>
 string StringToUpp(string parStr)
 {
 	string Upp = "";
@@ -281,52 +331,102 @@ string StringToUpp(string parStr)
 	return Upp;
 }
 
-
-void ReadData(vector < Animal* > &parvect, const string parFile)
+/// <summary>
+/// Чтение данных из файла
+/// </summary>
+/// <param name="parvect"> Вектор всех животных. </param>
+/// <param name="parFile"> Файл данных. </param>
+void ReadData(vector < Animal* >& parvect, const string parFile)
 {
 	vector<string> tokens;
-	string razdel = "\t";
-	size_t pos = 0;
+	string separator = "\t";
+	size_t separatorIndex = 0;
 	string string_I;
-	string token;
+
+	string pairField;
+	string pairSeparator = ": ";
+
+	map<string, string> fields;
 
 	ifstream out(parFile);
 	if (out.is_open())
 	{
 		while (getline(out, string_I))
 		{
-			while ((pos = string_I.find(razdel)) != string::npos) 
+			//находим разделитель пар
+			while ((separatorIndex = string_I.find(separator)) != string::npos)
 			{
-				token = string_I.substr(0, pos);
-				tokens.push_back(token);
-				string_I.erase(0, pos + razdel.length());
+				//Пара ключ-значение
+				pairField = string_I.substr(0, separatorIndex);
+
+				//Записываем пару ключ-значение в словарь
+				//Например "Животное" - "Собака"
+				fields.insert(GetPair(pairField, pairSeparator));
+
+				//из строки вырезаем уже обработанную пару
+				string_I.erase(0, separatorIndex + separator.length());
 			}
 
-			tokens.push_back(string_I);
+			//добавляем в словарь последнюю, не обработанную пару ключ-значение
+			fields.insert(GetPair(string_I, pairSeparator));
 
-			if (tokens[0] == "Собака")
+			//создаем объект по параметрам
+			if (fields["Animal"] == "Собака")
 			{
-				parvect.push_back(new Dog(stoi(tokens[1]), tokens[2], stof(tokens[3]), stoi(tokens[4]), tokens[5]));
-				tokens.clear();
+				parvect.push_back(new Dog(fields));
 			}
-			else if (tokens[0] == "Кошка")
+			else if (fields["Animal"] == "Кошка")
 			{
-				parvect.push_back(new Cat(stoi(tokens[1]), tokens[2], stof(tokens[3]), stoi(tokens[4]), tokens[5], stoi(tokens[6]) > 0));
-				tokens.clear();
+				parvect.push_back(new Cat(fields));
 			}
-			else if (tokens[0] == "Шиншилла")
+			else if (fields["Animal"] == "Шиншилла")
 			{
-				parvect.push_back(new Chinchila(stoi(tokens[1]), tokens[2], stof(tokens[3]), stoi(tokens[4]), tokens[5]));
-				tokens.clear();
+				parvect.push_back(new Chinchila(fields));
 			}
+
+			//очищаем словарь
+			//по сути, при последующих итерациях значения будут перезаписаны
+			//но если какая то пара не будет перезаписана, она будет "висеть"
+			//поэтому лучше все таки очистить
+			fields.clear();
+
 		}
 
+		//закрываем файл
 		out.close();
 	}
 }
 
+/// <summary>
+/// Разбирает строку на ключ-значение и возвращает пару
+/// </summary>
+/// <param name="str">Исходная строка</param>
+/// <param name="separator">Разделитель ключа и значения</param>
+/// <returns>Пара ключ-значение</returns>
+pair <string, string> GetPair(string str, string separator)
+{
+	//Находим индекс разделителя пары
+	int pairSeparatorIndex = str.find(separator);
 
-bool ContainsValue(vector < string > &parVect, string parValue)
+	//Получаем ключ пары - это имя поля объекта
+	string pairKey = str.substr(0, pairSeparatorIndex);
+
+	//Получаем значение пары
+	string pairValue = str.substr(pairSeparatorIndex + separator.length(), str.length());
+
+	//возвращаем пару "ключ-значение"
+	return pair<string, string> {pairKey, pairValue};
+
+}
+
+
+/// <summary>
+///  Сравнение животного из vect и typeAnim
+/// </summary>
+/// <param name="parVect"> Вектор животных. </param>
+/// <param name="parValue"> Животное с которым сравнивают </param>
+/// <returns> Результат сравнения (true/false) </returns>
+bool ContainsValue(vector < string >& parVect, string parValue)
 {
 	bool result;
 	auto it = find(parVect.begin(), parVect.end(), parValue);
@@ -341,8 +441,12 @@ bool ContainsValue(vector < string > &parVect, string parValue)
 	return result; 
 }
 
-
-void PrintByType(vector < Animal* > parVect, string parType)
+/// <summary>
+/// Вывод данных по типу
+/// </summary>
+/// <param name="parVect"> Вектор всех животных. </param>
+/// <param name="parType"> Тип животного. </param>
+void PrintByType(vector < Animal* >& parVect, string parType)
 {
 	for (short i = 0; i < size(parVect); i++)
 	{

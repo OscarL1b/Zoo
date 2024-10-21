@@ -40,6 +40,15 @@ Animal::Animal(unsigned par)
 	}
 }
 
+Animal::Animal(map <string, string> fieldsMap)
+{
+	if (fieldsMap.count("id"))		SetId(stoi(fieldsMap["id"]));
+	if (fieldsMap.count("Animal"))	this->animal = fieldsMap["Animal"];
+	if (fieldsMap.count("name"))	this->name = fieldsMap["name"];
+	if (fieldsMap.count("weaght"))	this->weaght = stof(fieldsMap["weaght"]);
+	if (fieldsMap.count("age"))		this->age = stoi(fieldsMap["age"]);
+}
+
 void Animal::SetVect(vector < Animal* > parvect)
 {
 	Animal::vect = parvect;

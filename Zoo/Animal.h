@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include <map>
 using namespace std;
 
 class Animal
@@ -24,6 +25,7 @@ protected:
 	Animal();
 	Animal(int parid, string paranimal, string parname, float parweaght, int parage);
 	Animal(unsigned par);
+	Animal(map <string, string> fieldsMap);
 
 public:
 	void SetVect(vector < Animal* > parvect);

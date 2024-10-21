@@ -16,6 +16,12 @@ Cat::Cat(int parid, string parname, float parweaght, int parage, string parbreed
 	this->balt = parbalt > 0;
 }
 
+Cat::Cat(map <string, string> fieldsMap) : Animal(fieldsMap)
+{
+	if (fieldsMap.count("breed"))	this->breed = fieldsMap["breed"];
+	if (fieldsMap.count("balt"))	this->balt = stoi(fieldsMap["balt"]);
+}
+
 void Cat::SetBreed(string parBreed)
 {
 	this->breed = parBreed;

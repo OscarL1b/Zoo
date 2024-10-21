@@ -15,6 +15,11 @@ Dog::Dog(int parid, string parname, float parweaght, int parage, string parbreed
 	this->breed = parbreed;
 }
 
+Dog::Dog(map <string, string> fieldsMap) : Animal(fieldsMap)
+{
+	if (fieldsMap.count("breed"))	this->breed = fieldsMap["breed"];
+}
+
 void Dog::SetBreed(string parBreed)
 {
 	this->breed = parBreed;

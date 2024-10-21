@@ -13,6 +13,7 @@ public:
 	Cat(string parbreed, float parweaght, int parage, bool parbalt);
 	Cat();
 	Cat(int parid, string parname, float parweaght, int parage, string parbreed, bool parbalt);
+	Cat(map <string, string> fieldsMap);
 	void SetBreed(string parBreed);
 	string GetBreed();
 	void SetBalt(bool parBalt);
