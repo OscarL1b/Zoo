@@ -52,5 +52,7 @@ float Cat::NeedFeed() const
 
 string Cat::Info()
 {
-	return Animal::Info() + this->breed + "\t" + to_string(this->balt) + "\n";
+	return Animal::Info() +
+		"breed: " + this->breed + "\t" +
+		"balt: " + to_string(this->balt);
 }

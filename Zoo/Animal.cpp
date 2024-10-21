@@ -124,8 +124,13 @@ float Animal::NeedFeed() const
 
 string Animal::Info()
 {
-	return  this->animal + "\t" + to_string(this->id) + "\t" + this->name + "\t" + to_string(this->weaght) + "\t" + to_string(this->age) + "\t";
+	return  "Animal: " + this->animal + "\t" +
+		"id: " + to_string(this->id) + "\t" +
+		"name: " + this->name + "\t" +
+		"weaght: " + to_string(this->weaght) + "\t" +
+		"age: " + to_string(this->age) + "\t";
 }
+
 
 void Animal::SetId(int parid)
 {
