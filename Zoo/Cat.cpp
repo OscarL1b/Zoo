@@ -54,5 +54,5 @@ string Cat::Info()
 {
 	return Animal::Info() +
 		"breed: " + this->breed + "\t" +
-		"balt: " + to_string(this->balt);
+		"balt: " + to_string(this->balt) + "\n";
 }

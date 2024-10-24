@@ -40,5 +40,5 @@ float Chinchila::NeedFeed() const
 
 string Chinchila::Info()
 {
-	return Animal::Info() + "color: " + this->color;
+	return Animal::Info() + "color: " + this->color + "\n";
 }

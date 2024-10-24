@@ -1,0 +1,2 @@
+Animal: Собака	id: 1	name: Линч	weaght: 15,000000	age: 6	breed: Доберман
+Animal: Кошка	id: 2	name: Мая	weaght: 3,000000	age: 8	breed: Сиамская	balt: 0
