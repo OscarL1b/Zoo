@@ -371,15 +371,15 @@ void ReadData(vector < Animal* >& parvect, const string parFile)
 			fields.insert(GetPair(string_I, pairSeparator));
 
 			//создаем объект по параметрам
-			if (fields["Animal"] == "Собака")
+			if (fields["Животное"] == "Собака")
 			{
 				parvect.push_back(new Dog(fields));
 			}
-			else if (fields["Animal"] == "Кошка")
+			else if (fields["Животное"] == "Кошка")
 			{
 				parvect.push_back(new Cat(fields));
 			}
-			else if (fields["Animal"] == "Шиншилла")
+			else if (fields["Животное"] == "Шиншилла")
 			{
 				parvect.push_back(new Chinchila(fields));
 			}

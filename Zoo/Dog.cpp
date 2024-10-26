@@ -41,5 +41,5 @@ float Dog::NeedFeed() const
 
 string Dog::Info()
 {
-	return Animal::Info() + "breed: " + this->breed + "\n";
+	return Animal::Info() + "Порода: " + this->breed + "\n";
 }
