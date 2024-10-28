@@ -34,7 +34,7 @@ Animal::Animal(int parid, string paranimal, string parname, float parweaght, int
 
 Animal::Animal(unsigned par)
 {
-	if (par > 0) 
+	if (par > 1) 
 	{
 		this->mother->FindAnimal(par);
 	}
@@ -43,10 +43,12 @@ Animal::Animal(unsigned par)
 Animal::Animal(map <string, string> fieldsMap)
 {
 	if (fieldsMap.count("id"))		SetId(stoi(fieldsMap["id"]));
-	if (fieldsMap.count("Animal"))	this->animal = fieldsMap["Animal"];
-	if (fieldsMap.count("name"))	this->name = fieldsMap["name"];
-	if (fieldsMap.count("weaght"))	this->weaght = stof(fieldsMap["weaght"]);
-	if (fieldsMap.count("age"))		this->age = stoi(fieldsMap["age"]);
+	if (fieldsMap.count("Животное"))	this->animal = fieldsMap["Животное"];
+	if (fieldsMap.count("Кличка"))	this->name = fieldsMap["Кличка"];
+	if (fieldsMap.count("Вес"))	this->weaght = stof(fieldsMap["Вес"]);
+	if (fieldsMap.count("Возраст"))		this->age = stoi(fieldsMap["Возраст"]);
+	if (fieldsMap.count("id матери"))	this->mother->GetId();
+	if (fieldsMap.count("id отца"))	this->father->GetId();
 }
 
 void Animal::SetVect(vector < Animal* > parvect)
@@ -128,7 +130,9 @@ string Animal::Info()
 		"id: " + to_string(this->id) + "\t" +
 		"Кличка: " + this->name + "\t" +
 		"Вес: " + to_string(this->weaght) + "\t" +
-		"Возраст: " + to_string(this->age) + "\t";
+		"Возраст: " + to_string(this->age) + "\t" +
+		"id матери: " + to_string(this->mother->GetId()) + "\t" +
+		"id отца: " + to_string(this->father->GetId()) + "\t";
 }
 
 

@@ -59,7 +59,7 @@ void Animal::Fill()
 	cout << "Возраст: ";
 	cin >> f_age;
 	this->SetAge(f_age);
-	/*
+	
 	cout << "Id матери: ";
 	cin >> id_mother;
 	this-> SetMother(FindAnimal(id_mother));
@@ -67,7 +67,6 @@ void Animal::Fill()
 	cout << "Id отца: ";
 	cin >> id_father;
 	this->SetFather(FindAnimal(id_father));
-	*/
 }
 
 void Dog::Fill()

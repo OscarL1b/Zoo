@@ -16,7 +16,7 @@ Chinchila::Chinchila(int parid, string parname, float parweaght, int parage, str
 
 Chinchila::Chinchila(map <string, string> fieldsMap) : Animal(fieldsMap)
 {
-	if (fieldsMap.count("color"))	this->color = fieldsMap["color"];
+	if (fieldsMap.count("Цвет"))	this->color = fieldsMap["Цвет"];
 }
 
 void Chinchila::SetColor(string parColor)
