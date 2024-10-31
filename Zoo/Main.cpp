@@ -32,7 +32,7 @@ int main()
 	
 	int choiseMenu;
 	const string file = "data.txt";
-	vector <Animal*> vect = Animal::GetVect();
+	vector <Animal*> &vect = Animal::GetVect();
 
 	ReadData(vect, file);
 
@@ -145,6 +145,8 @@ int main()
 	}
 	return 0;
 }
+
+
 /// <summary>
 /// Настройка текста в консоли
 /// </summary>
@@ -454,3 +456,5 @@ void PrintByType(vector < Animal* >& parVect, string parType)
 			parVect[i]->Print();
 	}
 }
+
+

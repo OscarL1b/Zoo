@@ -47,16 +47,23 @@ Animal::Animal(map <string, string> fieldsMap)
 	if (fieldsMap.count("Кличка"))	this->name = fieldsMap["Кличка"];
 	if (fieldsMap.count("Вес"))	this->weaght = stof(fieldsMap["Вес"]);
 	if (fieldsMap.count("Возраст"))		this->age = stoi(fieldsMap["Возраст"]);
-	if (fieldsMap.count("id матери"))	this->mother->GetId();
-	if (fieldsMap.count("id отца"))	this->father->GetId();
+	if (fieldsMap.count("id матери"))
+	{
+		unsigned idFindMother = stoi(fieldsMap["id матери"]);
+		Animal* findMother = FindAnimal(idFindMother);
+		if (findMother != nullptr)
+			this->mother = findMother;
+	}
+	if (fieldsMap.count("id отца"))
+	{
+		unsigned idFindFather = stoi(fieldsMap["id отца"]);
+		Animal* findFather = FindAnimal(idFindFather);
+		if (findFather != nullptr)
+			this->father = findFather;
+	}
 }
 
-void Animal::SetVect(vector < Animal* > parvect)
-{
-	Animal::vect = parvect;
-}
-
-vector < Animal* > Animal::GetVect()
+vector < Animal* > &Animal::GetVect()
 {
 	return Animal::vect;
 }
@@ -106,7 +113,11 @@ string Animal::GetAnimal()
 
 int Animal::GetId()
 {
-	return this->id;
+	if (this != nullptr)
+		return this->id;
+
+	else
+		return 0;
 }
 
 Animal* Animal::GetMother()
@@ -146,10 +157,14 @@ void Animal::SetId(int parid)
 
 Animal* Animal::FindAnimal(unsigned id)
 {
+	Animal* result = nullptr;
+
 	vector< Animal* > vect = Animal::GetVect();
 	for (short i = 0; i < size(vect); i++)
 	{
 		if (vect[i]->GetId() == id)
-			return vect[i];
+			result = vect[i];
 	}
+
+	return result;
 }

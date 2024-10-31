@@ -28,8 +28,7 @@ protected:
 	Animal(map <string, string> fieldsMap);
 
 public:
-	void SetVect(vector < Animal* > parvect);
-	static vector < Animal* > GetVect();
+	static vector < Animal* > &GetVect();
 	virtual void Print() const;
 	void SetName(string parName);
 	void SetWeaght(float parWeaght);

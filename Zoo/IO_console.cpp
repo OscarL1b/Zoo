@@ -5,6 +5,8 @@
 #include <iostream>
 using namespace std;
 
+vector <Animal*>& vect = Animal::GetVect();
+
 void Animal::Print() const
 {
 	cout <<  "------" << this->animal << "------" << endl;
@@ -62,11 +64,17 @@ void Animal::Fill()
 	
 	cout << "Id матери: ";
 	cin >> id_mother;
-	this-> SetMother(FindAnimal(id_mother));
+	if (FindAnimal(id_mother)->GetAnimal() == vect.back()->GetAnimal() or id_mother == 0)
+		this->SetMother(FindAnimal(id_mother));
+	else
+		id_mother = 0;
 
 	cout << "Id отца: ";
 	cin >> id_father;
-	this->SetFather(FindAnimal(id_father));
+	if (FindAnimal(id_father)->GetAnimal() == vect.back()->GetAnimal() or id_father == 0)
+		this->SetFather(FindAnimal(id_father));
+	else
+		id_father = 0;
 }
 
 void Dog::Fill()
