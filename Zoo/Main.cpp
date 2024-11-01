@@ -91,7 +91,6 @@ int main()
 				cerr << "Такого выбора нет! " << endl;
 				break;
 			}
-
 			
 			system("pause");
 			break;

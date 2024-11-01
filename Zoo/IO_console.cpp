@@ -49,6 +49,8 @@ void Animal::Fill()
 	string f_name;
 	float f_weaght;
 	int f_age;
+	bool whileMother = true;
+	bool whileFather = true;
 
 	cout << "Кличка: ";
 	cin >> f_name;
@@ -62,19 +64,34 @@ void Animal::Fill()
 	cin >> f_age;
 	this->SetAge(f_age);
 	
-	cout << "Id матери: ";
-	cin >> id_mother;
-	if (FindAnimal(id_mother)->GetAnimal() == vect.back()->GetAnimal() or id_mother == 0)
-		this->SetMother(FindAnimal(id_mother));
-	else
-		id_mother = 0;
+	while (whileMother == true)
+	{
+		cout << "Id матери: ";
+		cin >> id_mother;
 
-	cout << "Id отца: ";
-	cin >> id_father;
-	if (FindAnimal(id_father)->GetAnimal() == vect.back()->GetAnimal() or id_father == 0)
-		this->SetFather(FindAnimal(id_father));
-	else
-		id_father = 0;
+		Animal* mother_inId = FindAnimal(id_mother); // получение самого объекта матери
+		if (mother_inId != nullptr) // если объект матери пустой, то
+		{
+			if (mother_inId->GetAnimal() == this->animal or id_mother == 0)
+				this->SetMother(mother_inId);
+			whileMother = false;
+		}
+		
+	}
+
+	while (whileFather == true)
+	{
+		cout << "Id отца: ";
+		cin >> id_father;
+
+		Animal* father_inId = FindAnimal(id_father);
+		if (father_inId != nullptr)
+		{
+			if (father_inId->GetAnimal() == this->animal or id_father == 0)
+				this->SetFather(father_inId);
+			whileFather = false;
+		}	
+	}
 }
 
 void Dog::Fill()
