@@ -5,8 +5,6 @@
 #include <iostream>
 using namespace std;
 
-vector <Animal*>& vect = Animal::GetVect();
-
 void Animal::Print() const
 {
 	cout <<  "------" << this->animal << "------" << endl;
@@ -49,8 +47,6 @@ void Animal::Fill()
 	string f_name;
 	float f_weaght;
 	int f_age;
-	bool whileMother = true;
-	bool whileFather = true;
 
 	cout << "Кличка: ";
 	cin >> f_name;
@@ -64,33 +60,50 @@ void Animal::Fill()
 	cin >> f_age;
 	this->SetAge(f_age);
 	
-	while (whileMother == true)
+	while (true)
 	{
 		cout << "Id матери: ";
 		cin >> id_mother;
 
-		Animal* mother_inId = FindAnimal(id_mother); // получение самого объекта матери
-		if (mother_inId != nullptr) // если объект матери пустой, то
+		if (id_mother == 0)
+			break;
+
+		Animal* foundMother = FindAnimal(id_mother); // получение самого объекта матери
+		if (foundMother != nullptr) // если объект матери не пустой, то
 		{
-			if (mother_inId->GetAnimal() == this->animal or id_mother == 0)
-				this->SetMother(mother_inId);
-			whileMother = false;
+			if (foundMother->GetAnimal() == this->animal)
+			{
+				this->SetMother(foundMother);
+				break;
+			}
+			else
+				cerr << "Разные типы животных! " << endl;
 		}
-		
+		else
+			cerr << "Нет такого животного! " << endl;
 	}
 
-	while (whileFather == true)
+	while (true)
 	{
 		cout << "Id отца: ";
 		cin >> id_father;
 
+		if (id_mother == 0)
+			break;
+
 		Animal* father_inId = FindAnimal(id_father);
 		if (father_inId != nullptr)
 		{
-			if (father_inId->GetAnimal() == this->animal or id_father == 0)
+			if (father_inId->GetAnimal() == this->animal)
+			{
 				this->SetFather(father_inId);
-			whileFather = false;
-		}	
+				break;
+			}
+			else
+				cerr << "Разные типы животных! " << endl;
+		}
+		else
+			cerr << "Нет такого животного! " << endl;
 	}
 }
 
