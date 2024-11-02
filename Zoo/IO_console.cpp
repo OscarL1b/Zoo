@@ -88,15 +88,15 @@ void Animal::Fill()
 		cout << "Id מעצא: ";
 		cin >> id_father;
 
-		if (id_mother == 0)
+		if (id_father == 0)
 			break;
 
-		Animal* father_inId = FindAnimal(id_father);
-		if (father_inId != nullptr)
+		Animal* foundFather = FindAnimal(id_father);
+		if (foundFather != nullptr)
 		{
-			if (father_inId->GetAnimal() == this->animal)
+			if (foundFather->GetAnimal() == this->animal)
 			{
-				this->SetFather(father_inId);
+				this->SetFather(foundFather);
 				break;
 			}
 			else
