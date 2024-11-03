@@ -71,13 +71,18 @@ void Animal::Fill()
 		Animal* foundMother = FindAnimal(id_mother); // получение самого объекта матери
 		if (foundMother != nullptr) // если объект матери не пустой, то
 		{
-			if (foundMother->GetAnimal() == this->animal)
+			if (this->id != foundMother->GetId())
 			{
-				this->SetMother(foundMother);
-				break;
+				if (foundMother->GetAnimal() == this->animal)
+				{
+					this->SetMother(foundMother);
+					break;
+				}
+				else
+					cerr << "Разные типы животных! " << endl;
 			}
 			else
-				cerr << "Разные типы животных! " << endl;
+				cerr << "Нельзя сделать родителем само животное! " << endl;
 		}
 		else
 			cerr << "Нет такого животного! " << endl;
@@ -94,13 +99,18 @@ void Animal::Fill()
 		Animal* foundFather = FindAnimal(id_father);
 		if (foundFather != nullptr)
 		{
-			if (foundFather->GetAnimal() == this->animal)
+			if (this->id != foundFather->GetId())
 			{
-				this->SetFather(foundFather);
-				break;
+				if (foundFather->GetAnimal() == this->animal)
+				{
+					this->SetFather(foundFather);
+					break;
+				}
+				else
+					cerr << "Разные типы животных! " << endl;
 			}
 			else
-				cerr << "Разные типы животных! " << endl;
+				cerr << "Нельзя сделать родителем само животное! " << endl;
 		}
 		else
 			cerr << "Нет такого животного! " << endl;

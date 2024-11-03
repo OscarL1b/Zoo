@@ -257,16 +257,32 @@ void DeleteAnimalByName(vector <Animal*>& vect)
 	cout << "Кличка животного которое надо удалить: ";
 	cin >> deleteAnimal;
 
+	Animal* findDeleteAnimal = nullptr;
+
 	for (int i = 0; i < size(vect); i++)
 	{
 		if (StringToUpp(vect[i]->GetName()) == StringToUpp(deleteAnimal))
 		{
-			delete vect[i];
-			vect.erase(vect.begin() + i);
-			cout << "Животное удалено! " << endl;
+			findDeleteAnimal = vect[i];
 		}
 	}
+
+	for (int i = 0; i < size(vect); i++)
+	{
+		if (findDeleteAnimal->GetId() == vect[i]->GetMother()->GetId() or vect[i]->GetFather()->GetId())
+		{
+			if (StringToUpp(vect[i]->GetName()) == StringToUpp(deleteAnimal))
+			{
+				delete vect[i];
+				vect.erase(vect.begin() + i);
+				cout << "Животное удалено! " << endl;
+			}
+		}
+		else
+			cerr << "Животное нельзя удалить так как оно является родителем! " << endl;
+	}
 }
+
 
 /// <summary>
 /// Расчёт колличества корма
@@ -455,5 +471,3 @@ void PrintByType(vector < Animal* >& parVect, string parType)
 			parVect[i]->Print();
 	}
 }
-
-
