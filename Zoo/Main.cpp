@@ -253,6 +253,7 @@ void FindAnimalsByType(vector <Animal*>& vect)
 void DeleteAnimalByName(vector <Animal*>& vect)
 {
 	string deleteAnimal;
+	bool flag = false;
 
 	cout << "Кличка животного которое надо удалить: ";
 	cin >> deleteAnimal;
@@ -264,23 +265,26 @@ void DeleteAnimalByName(vector <Animal*>& vect)
 		if (StringToUpp(vect[i]->GetName()) == StringToUpp(deleteAnimal))
 		{
 			findDeleteAnimal = vect[i];
+			flag = true;
 		}
 	}
 
-	for (int i = 0; i < size(vect); i++)
+	if (flag == true)
 	{
-		if (findDeleteAnimal->GetId() == vect[i]->GetMother()->GetId() or vect[i]->GetFather()->GetId())
+		for (int i = 0; i < size(vect); i++)
 		{
-			if (StringToUpp(vect[i]->GetName()) == StringToUpp(deleteAnimal))
+			if (findDeleteAnimal->GetId() == vect[i]->GetMother()->GetId() or findDeleteAnimal->GetId() == vect[i]->GetFather()->GetId())
 			{
-				delete vect[i];
-				vect.erase(vect.begin() + i);
-				cout << "Животное удалено! " << endl;
+				cerr << "Животное нельзя удалить так как оно является родителем! " << endl;
 			}
+			else
+				delete vect[i];
+			    vect.erase(vect.begin() + i);
+			    cout << "Животное удалено! " << endl;
 		}
-		else
-			cerr << "Животное нельзя удалить так как оно является родителем! " << endl;
 	}
+	else
+		cerr << "Такого животного нет! " << endl;
 }
 
 
