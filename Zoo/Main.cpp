@@ -254,6 +254,7 @@ void DeleteAnimalByName(vector <Animal*>& vect)
 {
 	string deleteAnimal;
 	bool flag = false;
+	int indexDeleleAnimal;
 
 	cout << "Кличка животного которое надо удалить: ";
 	cin >> deleteAnimal;
@@ -265,23 +266,26 @@ void DeleteAnimalByName(vector <Animal*>& vect)
 		if (StringToUpp(vect[i]->GetName()) == StringToUpp(deleteAnimal))
 		{
 			findDeleteAnimal = vect[i];
+			indexDeleleAnimal = i;
 			flag = true;
 		}
 	}
 
-	if (flag == true)
+	if (flag)
 	{
 		for (int i = 0; i < size(vect); i++)
 		{
 			if (findDeleteAnimal->GetId() == vect[i]->GetMother()->GetId() or findDeleteAnimal->GetId() == vect[i]->GetFather()->GetId())
 			{
 				cerr << "Животное нельзя удалить так как оно является родителем! " << endl;
+				return;
 			}
-			else
-				delete vect[i];
-			    vect.erase(vect.begin() + i);
-			    cout << "Животное удалено! " << endl;
 		}
+
+		delete vect[indexDeleleAnimal];
+		vect.erase(vect.begin() + indexDeleleAnimal);
+		cout << "Животное удалено! " << endl;
+
 	}
 	else
 		cerr << "Такого животного нет! " << endl;
